@@ -301,7 +301,7 @@ def generate_launch_description():
             moveit_controllers_file,
             occupancy_map_monitor_parameters,
             planning_scene_monitor_parameters,
-            {'use_sim_time': sim}
+            {'use_sim_time': False}
         ])
 
 # --------- Robot Control Node (only if 'sim:=false') ---------
@@ -330,7 +330,7 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='both',
-        parameters=[{'use_sim_time': sim}, robot_description]
+        parameters=[{'use_sim_time': False}, robot_description]
     )
 
     joint_state_broadcaster_spawner = Node(
