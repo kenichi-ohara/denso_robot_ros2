@@ -381,19 +381,6 @@ def generate_launch_description():
             '--child-frame-id', TextJoinSubstitution([namespace], 'base_link', '')
         ])
 
-# --------- Gazebo Nodes (only if 'sim:=true') ---------
-    gazebo = ExecuteProcess(
-        condition=IfCondition(sim),
-        cmd=['gazebo', '--verbose', 'worlds/empty.world', '-s', 'libgazebo_ros_factory.so'],
-        output='screen')
-
-    spawn_entity = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        condition=IfCondition(sim),
-        arguments=['-topic', 'robot_description', '-entity', denso_robot_model],
-        output='screen')
-
     nodes_to_start = [
         control_node,
         robot_controller_spawner,
@@ -401,8 +388,6 @@ def generate_launch_description():
 #        mongodb_server_node,
         rviz_node,
         static_tf,
-        gazebo,
-        spawn_entity,
         robot_state_publisher_node,
         joint_state_broadcaster_spawner
     ]
