@@ -23,6 +23,7 @@ from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 from launch_ros.substitutions import FindPackageShare
 from launch.actions import ExecuteProcess
 from typing import Text
@@ -198,7 +199,7 @@ def generate_launch_description():
             'verbose:=', verbose, ' ',
             'sim:=', sim, ' '
         ])
-    robot_description = {'robot_description': robot_description_content}
+    robot_description = {'robot_description': ParameterValue(robot_description_content, value_type=str)}
 
 # --------- MoveIt Configuration ---------
 
@@ -211,7 +212,8 @@ def generate_launch_description():
             'model:=', denso_robot_model, ' ',
             'namespace:=', namespace, ' '
         ])
-    robot_description_semantic = {'robot_description_semantic': robot_description_semantic_content}
+    robot_description_semantic = {
+        'robot_description_semantic': ParameterValue(robot_description_semantic_content, value_type=str)}
     kinematics_yaml = load_yaml('denso_robot_moveit_config', 'config/kinematics.yaml')
     robot_description_kinematics = {'robot_description_kinematics': kinematics_yaml}
 
