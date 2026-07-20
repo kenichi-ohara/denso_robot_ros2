@@ -18,7 +18,9 @@
 	<xacro:include filename="$(find denso_robot_descriptions)/robots/$(arg model)/urdf/denso_robot_joint_limits.xacro" />
       <hardware>
         <xacro:if value="${sim}">
-      	  <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+          <!-- ROS 2 Jazzy: Gazebo Classic is unavailable, so use ros2_control
+               mock hardware (fake node) that mirrors commands to states. -->
+          <plugin>mock_components/GenericSystem</plugin>
         </xacro:if>
         <xacro:unless value="${sim}">
           <plugin>denso_robot_control/DensoRobotHW</plugin>

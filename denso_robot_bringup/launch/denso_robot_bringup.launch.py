@@ -314,7 +314,8 @@ def generate_launch_description():
     control_node = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        condition=UnlessCondition(sim),
+        # Run the controller manager for both sim (mock hardware) and real
+        # robot. Previously Gazebo provided the controller manager in sim.
         parameters=[
             robot_description,
             robot_controllers,
